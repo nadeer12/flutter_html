@@ -1,28 +1,39 @@
- <!DOCTYPE html>
-       <html lang="en">
-       <head>
-           <meta charset="UTF-8">
-           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-           <title>Flutter WebView Communication</title>
-       </head>
-       <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter WebView Communication</title>
+</head>
+<body>
 
-           <h1>Enter a Message:</h1>
+    <h1>Enter a Message:</h1>
 
-           <input type="text" id="messageInput" placeholder="Type your message">
-           <button onclick="sendMessageToFlutter()">Send to Flutter</button>
+    <input type="text" id="messageInput" placeholder="Type your message">
+    <button onclick="sendMessageToFlutter()">Send to Flutter</button>
 
-           <script>
-               function sendMessageToFlutter() {
-                   var message = document.getElementById('messageInput').value;
-                   if (window.flutter) {
-                       window.flutter.postMessage(message);
-                   } else {
-                       console.error('Flutter channel not available');
-                   }
-              }
-          </script>
+    <h2>Received Message:</h2>
+    <input type="text" id="receivedMessage" readonly>
 
-       </body>
-      </html>
+    <script>
+        function sendMessageToFlutter() {
+            var message = document.getElementById('messageInput').value;
+            if (window.flutter) {
+                window.flutter.postMessage(message);
+            } else {
+                console.error('Flutter channel not available');
+            }
+        }
 
+        function displayReceivedMessage(message) {
+            var receivedMessageInput = document.getElementById('receivedMessage');
+            if (receivedMessageInput) {
+                receivedMessageInput.value = message;
+            } else {
+                console.error('Received message input element not found');
+            }
+        }
+    </script>
+
+</body>
+</html>
